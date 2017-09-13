@@ -38,3 +38,6 @@ C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Ad
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Aduana_app\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Aduana_app\Aduana_app\obj\Debug\Aduana_app.dll
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Aduana_app\Aduana_app\obj\Debug\Aduana_app.pdb
+C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
+C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.dll
+C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.pdb
