@@ -20,7 +20,7 @@ namespace Aduana_app.Web_Services
         /*[WebMethod]
         public string HelloWorld()
         {
-            return "Hello World"; Ejemplo
+            return "Hello World"; 
         }*/
 
         [WebMethod]
@@ -39,7 +39,10 @@ namespace Aduana_app.Web_Services
         }
 
 
-
+		/**
+		 *	Metodo 
+		 *
+		*/
         [WebMethod]
         public string crear_Cuenta(string nombre, string username, string password, string no_tarjeta)
         {
