@@ -38,3 +38,32 @@ C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Ad
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Aduana_app\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Aduana_app\Aduana_app\obj\Debug\Aduana_app.dll
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Aduana_Project\Aduana_app\Aduana_app\obj\Debug\Aduana_app.pdb
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\NUnit3.TestAdapter.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\nunit.engine.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\nunit.engine.api.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Mono.Cecil.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Pdb.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Mdb.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Rocks.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\csc.exe
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\vbc.exe
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\VBCSCompiler.exe
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Aduana_app.dll.config
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Aduana_app.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Aduana_app.pdb
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\nunit.framework.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\nunit.framework.xml
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.dll
+C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.pdb

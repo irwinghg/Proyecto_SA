@@ -36,8 +36,7 @@ namespace Aduana_app.Web_Services
             }
 
             return "{"+getJson("respuesta",strRespuesta)+"}" ;
-			jgv
-        }
+		}
 
 
 		/**
@@ -77,6 +76,31 @@ namespace Aduana_app.Web_Services
             string auto3 = "{" + getJson("id_Vehiculo", 320) + " , " + getJson("marca", "Subaru") + ", " + getJson("linea", "WRX") + ", " + getJson("modelo", "2015") + "}";
             respuesta = "{\"vehiculos\":[ "+auto1+", "+auto2+", "+auto3+"]}";
             return respuesta;
+        }
+
+
+        [WebMethod]
+        public string cotizar_Vehiculo(int id_Vehiculo, string marca, string linea, string modelo)
+        {
+            string precio = getJson("precio_Vehiculo", 25000);
+            string precioenvio = getJson("precio_Envio", 3000);
+            string impuestosat = getJson("impuesto_Sat", 200);
+            string iva = getJson("iva", 100);
+            string isr = getJson("isr", 300);
+            string respuesta = "{" + precio + "," + precioenvio + "," + impuestosat + "," + iva + "," + isr + "}";
+            return respuesta;
+        }
+
+        [WebMethod]
+        public string comprar_Vehiculo(int id_Cliente, string no_Tarjeta, int id_Vehiculo, Double precio_Vehiculo, 
+            Double precio_Envio,Double impuesto_sat, Double impuesto_Aduana, Double iva, Double isr)
+        {
+
+            string serie = getJson("serie", "A");
+            string numerofactura = getJson("numero_Factura", "8735");
+
+            return "{" + serie + " , " + numerofactura + "}";
+
         }
 
 
