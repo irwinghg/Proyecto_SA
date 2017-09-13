@@ -20,7 +20,7 @@ namespace Aduana_app.Web_Services
         /*[WebMethod]
         public string HelloWorld()
         {
-            return "Hello World";
+            return "Hello World"; Ejemplo
         }*/
 
         [WebMethod]
