@@ -91,8 +91,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Nunit_Aduana.cs" />
+    <Compile Include="Tests\Nunit_Banco.cs" />
     <Compile Include="Tests\Nunit_Envios.cs" />
     <Compile Include="Tests\Nunit_Importadora.cs" />
+    <Compile Include="Tests\Nunit_SAT.cs" />
     <Compile Include="Web Services\ws_Aduana.asmx.cs">
       <DependentUpon>ws_Aduana.asmx</DependentUpon>
       <SubType>Component</SubType>
