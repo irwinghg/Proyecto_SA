@@ -100,8 +100,8 @@ namespace Aduana_app.Web_Services
                 if (i == 0)
                     strResultado += string.Format(strPlantilla, arrAtributo[0], strTipo + arrAtributo[1] + strTipo);
                 else
-                    strResultado += "," + string.Format(strPlantilla, arrAtributo[0], strTipo + arrAtributo[1] + strTipo);
-            }
+                   // strResultado += "," + string.Format(strPlantilla, arrAtributo[0], strTipo + arrAtributo[1] + strTipo);
+           // }
             return "{" + strResultado + "}";
         }
     }
