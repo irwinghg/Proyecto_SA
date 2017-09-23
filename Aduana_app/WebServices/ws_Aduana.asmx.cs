@@ -31,7 +31,7 @@ namespace Aduana_app.Web_Services
                 strResultado = generateJson("costo_Aduana,135.57,2");
             else
                 strResultado = generateJson("costo_Aduana,-1,2");
-            return strResultado;
+            return "0";
         }
 
         [WebMethod]
