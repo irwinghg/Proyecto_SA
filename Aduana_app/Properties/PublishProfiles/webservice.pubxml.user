@@ -7,5 +7,77 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
+    <_PublishTargetUrl>C:\Users\Shumpe\Documents\Deploy</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Aduana_app.dll">
+      <publishTime>09/23/2017 10:29:54</publishTime>
+    </File>
+    <File Include="bin/Mono.Cecil.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="bin/Mono.Cecil.Mdb.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="bin/Mono.Cecil.Pdb.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="bin/Mono.Cecil.Rocks.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="bin/nunit.engine.api.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="bin/nunit.engine.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="bin/nunit.framework.dll">
+      <publishTime>09/13/2017 11:53:47</publishTime>
+    </File>
+    <File Include="bin/NUnit3.TestAdapter.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="Mono.Cecil.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="Mono.Cecil.Mdb.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="Mono.Cecil.Pdb.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="Mono.Cecil.Rocks.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="nunit.engine.api.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="nunit.engine.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="NUnit3.TestAdapter.dll">
+      <publishTime>09/13/2017 11:53:48</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>09/23/2017 10:07:27</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>09/23/2017 10:29:56</publishTime>
+    </File>
+    <File Include="WebServices/ws_Aduana.asmx">
+      <publishTime>09/23/2017 10:07:26</publishTime>
+    </File>
+    <File Include="WebServices/ws_Banco.asmx">
+      <publishTime>09/23/2017 10:07:26</publishTime>
+    </File>
+    <File Include="WebServices/ws_Envios.asmx">
+      <publishTime>09/23/2017 10:07:26</publishTime>
+    </File>
+    <File Include="WebServices/ws_Importadora.asmx">
+      <publishTime>09/23/2017 10:07:26</publishTime>
+    </File>
+    <File Include="WebServices/ws_Sat.asmx">
+      <publishTime>09/23/2017 10:07:26</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

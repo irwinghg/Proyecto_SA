@@ -67,37 +67,6 @@ C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\bin\nunit.framework.
 C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
 C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.dll
 C:\Users\Fernando\Desktop\PracticaSA\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.pdb
-<<<<<<< HEAD
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\csc.exe
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\vbc.exe
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\VBCSCompiler.exe
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\NUnit3.TestAdapter.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\nunit.engine.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\nunit.engine.api.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Mono.Cecil.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Pdb.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Mdb.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Rocks.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Aduana_app.dll.config
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Aduana_app.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Aduana_app.pdb
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\nunit.framework.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\bin\nunit.framework.xml
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.dll
-C:\Users\Shumpe\Documents\GitHub\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.pdb
-=======
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\bin\NUnit3.TestAdapter.dll
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\bin\nunit.engine.dll
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\bin\nunit.engine.api.dll
@@ -152,4 +121,3 @@ C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Debug\Package\P
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Debug\Package\PackageTmp\Aduana_app.csproj.user
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Debug\Package\PackageTmp\Web.config
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Debug\Package\Aduana_app.SourceManifest.xml
->>>>>>> master
