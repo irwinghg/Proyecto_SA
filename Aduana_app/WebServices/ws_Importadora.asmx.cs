@@ -46,7 +46,10 @@ namespace Aduana_app.Web_Services
         [WebMethod]
         public string crear_Cuenta(string nombre, string username, string password, string no_tarjeta)
         {
-            string strRespuesta = "";
+            ConexionDB dbconn = new ConexionDB();
+
+            dbconn.datos();
+                string strRespuesta = "";
             if (username.Equals("admin") && password.Equals("12345"))
             {
                 //se crea nuevo numero de cuenta
