@@ -136,3 +136,5 @@ C:\Users\Fernando\Desktop\SA_Proyecto_Fase2\Proyecto_SA\Aduana_app\bin\Aduana_ap
 C:\Users\Fernando\Desktop\SA_Proyecto_Fase2\Proyecto_SA\Aduana_app\bin\Aduana_app.pdb
 C:\Users\Fernando\Desktop\SA_Proyecto_Fase2\Proyecto_SA\Aduana_app\bin\nunit.framework.dll
 C:\Users\Fernando\Desktop\SA_Proyecto_Fase2\Proyecto_SA\Aduana_app\bin\nunit.framework.xml
+C:\Users\Fernando\Desktop\SA_Proyecto_Fase2\Proyecto_SA\Aduana_app\bin\Newtonsoft.Json.dll
+C:\Users\Fernando\Desktop\SA_Proyecto_Fase2\Proyecto_SA\Aduana_app\bin\Newtonsoft.Json.xml

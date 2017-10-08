@@ -48,7 +48,7 @@ namespace Aduana_app.Web_Services
         {
             ConexionDB dbconn = new ConexionDB();
 
-            dbconn.datos();
+            //dbconn.datos();
                 string strRespuesta = "";
             if (username.Equals("admin") && password.Equals("12345"))
             {
