@@ -32,7 +32,7 @@ namespace Aduana_app.Web_Services
 
             try
             {
-                ConexionDB conn = new ConexionDB();
+                ConexionDB_Envios conn = new ConexionDB_Envios();
                 string sqlCommand = "select ln.ID_linea, mc.nombre as marca, ln.nombre as linea, '2017' as modelo, 'GT' as pais_origen, (ln.factor* 1000) as precio_vehiculo " +
                         " from linea ln " +
                         " join marca mc on mc.ID_marca = ln.marca;";
@@ -85,16 +85,15 @@ namespace Aduana_app.Web_Services
             
             try
             {
-                ConexionDB conn = new ConexionDB();
-                string sqlCommand = "select '2017' as modelo, 'GT' as pais_origen, (ln.factor* 1000)*0.04 as precio_vehiculo "+
+                ConexionDB_Envios conn = new ConexionDB_Envios();
+                string sqlCommand = "select '2017' as modelo, 'GT' as pais_origen, CAST((ln.factor* 1000)*0.04 AS DECIMAL(18,0)) as precio_vehiculo " +
                      " from linea ln " +
                      " join marca mc on mc.ID_marca = ln.marca where ln.ID_linea = "+Convert.ToString(id_vehiculo)+" ; ";
                 DataSet resultado = conn.selectDB(sqlCommand);
                 
                 if (resultado != null && resultado.Tables[0].Rows.Count > 0)
                 {
-                    string valorstr = resultado.Tables[0].Rows[0]["precio_vehiculo"].ToString();
-
+                    string valorstr = Convert.ToString(resultado.Tables[0].Rows[0]["precio_vehiculo"]);
                     Int64.TryParse(valorstr, out costoViaje);
                 }
 
@@ -128,8 +127,8 @@ namespace Aduana_app.Web_Services
         {
             try
             {
-                ConexionDB conn = new ConexionDB();
-                string sqlCommand = "insert into transferencia (ID_transferencia, monto, fecha_hora) values ('" + id_transferencia + "', " + Convert.ToString(monto) + " , GETDATE());";
+                ConexionDB_Envios conn = new ConexionDB_Envios();
+                string sqlCommand = "insert into transferencia (ID_transferencia, monto, fecha_hora) values ('" + id_transferencia + "', " + Convert.ToString(monto) + " , SYSDATETIME());";
                 int resultado = conn.modificarDB(sqlCommand);
 
                 if (resultado == 1)

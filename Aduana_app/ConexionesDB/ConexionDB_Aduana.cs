@@ -9,11 +9,12 @@ using System.Xml;
 
 namespace Aduana_app
 {
-    public class ConexionDB
+    public class ConexionDB_Aduana
     {
 
-        public int modificarDB(string sqlCommand) {
-            
+        public int modificarDB(string sqlCommand)
+        {
+
             //string MyString = "update cliente set nombre =  'prueba2' where id_cliente = 'A583229' ;";
             string connetionString = null;
             SqlConnection connection;
@@ -36,8 +37,9 @@ namespace Aduana_app
             }
         }
 
-        public DataSet selectDB(string sqlCommand) {
-            
+        public DataSet selectDB(string sqlCommand)
+        {
+
             try
             {
                 string conexionstr = generarConnectionstring();
@@ -56,15 +58,16 @@ namespace Aduana_app
             }
             catch (Exception ex)
             {
-                return null;                
+                return null;
             }
         }
 
-        public string generarConnectionstring() {
+        public string generarConnectionstring()
+        {
 
             XmlDocument doc = new XmlDocument();
-            doc.Load("C:\\DatosSA\\acceso.xml");
-            
+            doc.Load("C:\\DatosSA\\acceso_Aduana.xml");
+
             XmlNodeList sources = doc.GetElementsByTagName("server");
             XmlNodeList databases = doc.GetElementsByTagName("database");
             string connetionString = "";

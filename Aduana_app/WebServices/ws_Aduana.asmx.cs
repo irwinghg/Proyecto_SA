@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -19,35 +21,97 @@ namespace Aduana_app.Web_Services
         [WebMethod]
         public string calcular_Costo_Aduana(string marca, string linea, string modelo)
         {
-            string strResultado = "";
-            if (marca == "")
-                marca = null;
-            if (linea == "")
-                marca = null;
-            if (modelo == "")
-                marca = null;
+            long costoAduana = 0;
+            int modeloAduana = 0;
+            long costoAuto = 0;
+            try
+            {
+                ConexionDB_Aduana conn = new ConexionDB_Aduana();
+                string sqlCommand = "select '2017' as modelo, (ln.factor* 1000) as precio_vehiculo "+
+                                         " from linea ln " +
+                                         " join marca mc on mc.ID_marca = ln.marca "+
+                                         " where mc.nombre = 'ABARTH' and "+
+                                         " ln.nombre = '500' ;"; //falta where modelo
+                DataSet resultado = conn.selectDB(sqlCommand);
 
-            if (marca != null && linea != null && modelo != null)
-                strResultado = generateJson("costo_Aduana,135.57,2");
-            else
-                strResultado = generateJson("costo_Aduana,-1,2");
-            return strResultado;
+                if (resultado != null && resultado.Tables[0].Rows.Count > 0)
+                {
+                    string valorstr = Convert.ToString(resultado.Tables[0].Rows[0]["precio_vehiculo"]);
+                    string modelostr = Convert.ToString(resultado.Tables[0].Rows[0]["modelo"]);
+                    Int64.TryParse(valorstr, out costoAuto);
+                    Int32.TryParse(modelostr, out modeloAduana);
+                    String sDate = DateTime.Now.ToString();
+                    DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+                    String yearstr = datevalue.Year.ToString();
+                    costoAduana = costoAuto + (2000 / (Convert.ToInt32(yearstr) * modeloAduana))+1000;
+                }
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    costo_Aduana = costoAduana,
+                    status = 0,
+                    descripcion = "Exitoso"
+
+                });
+
+                return json;
+            }
+            catch (Exception e)
+            {
+                var json = JsonConvert.SerializeObject(new
+                {
+                    costo_Aduana = 0,
+                    status = 1,
+                    descripcion = "Error"
+
+                });
+
+                return json;
+            }
         }
 
         [WebMethod]
         public string guardar_Id_Transferencia(int id_Transferencia, double monto_Compra)
         {
-            string strResultado = "";
-            if (id_Transferencia == 0)
-                id_Transferencia = -1;
-            if (monto_Compra == 0)
-                monto_Compra = -1;
+            try
+            {
+                ConexionDB_Aduana conn = new ConexionDB_Aduana();
+                string sqlCommand = "use aduana_sa; insert into transferencia (ID_transferencia, monto, fecha_hora) values ('" + id_Transferencia + "', " + Convert.ToString(monto_Compra) + " , SYSDATETIME());";
+                int resultado = conn.modificarDB(sqlCommand);
 
-            if (id_Transferencia != -1 && monto_Compra != -1)
-                strResultado = generateJson("respuesta,true,1");
-            else
-                strResultado = generateJson("respuesta,false,1");
-            return strResultado;
+                if (resultado == 1)
+                {
+                    var json = JsonConvert.SerializeObject(new
+                    {
+                        status = 1,
+                        descripcion = "Exitoso"
+                    });
+
+                    return json;
+                }
+                else
+                {
+                    var json = JsonConvert.SerializeObject(new
+                    {
+                        status = 1,
+                        descripcion = "Tipo de dato incorrecto"
+                    });
+
+                    return json;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                var json = JsonConvert.SerializeObject(new
+                {
+                    status = 1,
+                    descripcion = "Tipo de dato incorrecto"
+                });
+
+                return json;
+            }
         }
 
         string strPlantilla = "\"{0}\": {1}";
