@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.Services;
 
 namespace Aduana_app.Web_Services
@@ -24,33 +27,142 @@ namespace Aduana_app.Web_Services
         }*/
 
         [WebMethod]
-        public string cargar_Vehiculos(int solicitud_Catalogo)
+        public string cargar_Vehiculos()
         {
-            string respuesta = "";
-            string auto1 = "{" + getJson("id_Vehiculo", 300) + " , " + getJson("marca", "Toyota") + ", " + getJson("linea", "Yaris") + ", " + getJson("modelo", "2010") + "}";
-            string auto2 = "{" + getJson("id_Vehiculo", 310) + " , " + getJson("marca", "Nissan") + ", " + getJson("linea", "Navara") + ", " + getJson("modelo", "2016") + "}";
-            string auto3 = "{" + getJson("id_Vehiculo", 320) + " , " + getJson("marca", "Subaru") + ", " + getJson("linea", "WRX") + ", " + getJson("modelo", "2015") + "}";
-            respuesta = "{\"vehiculos\":[ " + auto1 + ", " + auto2 + ", " + auto3 + "]}";
-            return respuesta;
-        }
 
-        [WebMethod]
-        public string calcular_Costo_Viaje(int viaje, Double Costo) {
+            try
+            {
+                ConexionDB_Envios conn = new ConexionDB_Envios();
+                string sqlCommand = "select ln.ID_linea, mc.nombre as marca, ln.nombre as linea, '2017' as modelo, 'GT' as pais_origen, (ln.factor* 1000) as precio_vehiculo " +
+                        " from linea ln " +
+                        " join marca mc on mc.ID_marca = ln.marca;";
+                DataSet resultado = conn.selectDB(sqlCommand);
+                List<vehiculo> listadoVehiculos = new List<vehiculo>();
 
-            string costo = getJson("costo_Viaje", 600);
-            return "{"+costo+"}";
-        }
+                if (resultado != null && resultado.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in resultado.Tables[0].Rows)
+                    {
+                        vehiculo objVehiculo = new vehiculo();
+                        objVehiculo.id_vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
+                        objVehiculo.marca = dr["marca"].ToString();
+                        objVehiculo.linea = dr["linea"].ToString();
+                        objVehiculo.modelo = Convert.ToInt32(dr["modelo"].ToString());
+                        objVehiculo.pais_Origen = dr["pais_origen"].ToString();
+                        objVehiculo.precio_vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
+                        listadoVehiculos.Add(objVehiculo);
 
+                    }
+                }
 
-        [WebMethod]
-        public string guardar_Transferencia(int id_transferencia, int monto)
-        {
-            string respuesta = "false";
-            if (id_transferencia == monto) {
-                respuesta = "true";
+                var json = JsonConvert.SerializeObject(new
+                {
+                    vehiculos = listadoVehiculos,
+                    status = 0,
+                    descripcion = "Exitoso"
+                    
+                });
+
+                return json;
             }
-            string resultado = getJson("respuesta",respuesta);
-            return "{" + resultado + "}";
+            catch (Exception e) {
+                var json = JsonConvert.SerializeObject(new
+                {
+                    vehiculos = "",
+                    status = 1,
+                    descripcion = "Error con la conexión a la BD de Envios"
+
+                });
+
+                return json;
+            }
+        }
+
+        [WebMethod]
+        public string calcular_Costo_Viaje(int id_vehiculo, string pais_destino) {
+            long costoViaje = 0;
+           
+            
+            try
+            {
+                ConexionDB_Envios conn = new ConexionDB_Envios();
+                string sqlCommand = "select '2017' as modelo, 'GT' as pais_origen, CAST((ln.factor* 1000)*0.04 AS DECIMAL(18,0)) as precio_vehiculo " +
+                     " from linea ln " +
+                     " join marca mc on mc.ID_marca = ln.marca where ln.ID_linea = "+Convert.ToString(id_vehiculo)+" ; ";
+                DataSet resultado = conn.selectDB(sqlCommand);
+                
+                if (resultado != null && resultado.Tables[0].Rows.Count > 0)
+                {
+                    string valorstr = Convert.ToString(resultado.Tables[0].Rows[0]["precio_vehiculo"]);
+                    Int64.TryParse(valorstr, out costoViaje);
+                }
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    costo_viaje = costoViaje,
+                    status = 0,
+                    descripcion = "Exitoso"
+
+                });
+
+                return json;
+            }
+            catch (Exception e)
+            {
+                var json = JsonConvert.SerializeObject(new
+                {
+                    costo_viaje = 0,
+                    status = 1,
+                    descripcion = "Error"
+
+                });
+
+                return json;
+            }
+        }
+
+
+        [WebMethod]
+        public string guardar_Transferencia(int id_transferencia, long monto)
+        {
+            try
+            {
+                ConexionDB_Envios conn = new ConexionDB_Envios();
+                string sqlCommand = "insert into transferencia (ID_transferencia, monto, fecha_hora) values ('" + id_transferencia + "', " + Convert.ToString(monto) + " , SYSDATETIME());";
+                int resultado = conn.modificarDB(sqlCommand);
+
+                if (resultado == 1)
+                {
+                    var json = JsonConvert.SerializeObject(new
+                    {
+                        status = 1,
+                        descripcion = "Exitoso"
+                    });
+
+                    return json;
+                }
+                else {
+                    var json = JsonConvert.SerializeObject(new
+                    {
+                        status = 1,
+                        descripcion = "Tipo de dato incorrecto"
+                    });
+
+                    return json;
+                }
+
+                
+            }
+            catch (Exception e)
+            {
+                var json = JsonConvert.SerializeObject(new
+                {
+                    status = 1,
+                    descripcion = "Tipo de dato incorrecto"
+                });
+
+                return json;
+            }
         }
 
 
@@ -74,5 +186,15 @@ namespace Aduana_app.Web_Services
         {
             return string.Format("\"{0}\": {1}", atributo, valor);
         }
+
+        public class vehiculo {
+            public int id_vehiculo { get; set; }
+            public string marca { get; set; }
+            public string linea { get; set; }
+            public int modelo { get; set; }
+            public string pais_Origen { get; set; }
+            public double precio_vehiculo { get; set; }
+        }
+
     }
 }
