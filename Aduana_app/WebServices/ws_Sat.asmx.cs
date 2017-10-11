@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -20,68 +21,244 @@ namespace Aduana_app.Web_Services
         [WebMethod]
         public string calcular_Impuesto_Sat(string marca, string linea, string modelo)
         {
-            //consultar impuesto
-            return generateJson("valor,400,2");
+            string strResultado;
+            try
+            {
+                strResultado = "";
+                if (String.IsNullOrEmpty(marca)) { marca = null; }
+                if (String.IsNullOrEmpty(linea)) { linea = null; }
+                if (String.IsNullOrEmpty(modelo)) { modelo = null; }
+
+                if (marca != null && linea != null && modelo != null)
+                    strResultado = ConsultarImpuesto(marca, linea, modelo);
+                else
+                    strResultado = generateJson("valor,-1,2;status,1,2;descripcion,Parametros de Ingreso Invalidos,1");
+
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return generateJson("valor,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
         }
 
         [WebMethod]
         public string registro_Id_Compra(int id_Transferencia, double monto_Compra)
         {
-            string strResultado = "";
-            if (id_Transferencia == 0)
-                id_Transferencia = -1;
-            if (monto_Compra == 0)
-                monto_Compra = -1;
+            string strResultado;
+            try
+            {
+                strResultado = "";
+                if (id_Transferencia == 0) { id_Transferencia = -1; }
+                if (monto_Compra == 0) { monto_Compra = -1; }
 
-            if (id_Transferencia != -1 && monto_Compra != -1)
-                strResultado = generateJson("respuesta,true,1");
-            else
-                strResultado = generateJson("respuesta,false,1");
-            return strResultado;
+                if (id_Transferencia != -1 && monto_Compra != -1)
+                    strResultado = RegistrarCompra(id_Transferencia, monto_Compra);
+                else
+                    strResultado = generateJson("status,1,2;descripcion,Tipo de Parametros Incorrecto,1");
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return generateJson("status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
         }
 
         [WebMethod]
         public string guardar_Manifiesto(string marca, string linea, string modelo, string fecha_Entrada, string pais_Origen)
         {
-            string strResultado = "";
-            if (marca == "")
-                marca = null;
-            if (linea == "")
-                linea = null;
-            if (modelo == "")
-                modelo = null;
-            if (fecha_Entrada == "")
-                fecha_Entrada = null;
-            if (pais_Origen == "")
-                pais_Origen = null;
+            string strResultado;
+            DateTime fecFechaEntrega = DateTime.MinValue;
+            try
+            {
+                strResultado = "";
+                if (String.IsNullOrEmpty(marca)) { marca = null; }
+                if (String.IsNullOrEmpty(linea)) { linea = null; }
+                if (String.IsNullOrEmpty(modelo)) { modelo = null; }
+                if (!String.IsNullOrEmpty(fecha_Entrada)) { fecFechaEntrega = DateTime.Parse(fecha_Entrada); }
+                if (String.IsNullOrEmpty(pais_Origen)) { pais_Origen = null; }
 
-            if (marca != null && linea != null && modelo != null && fecha_Entrada != null && pais_Origen != null)
-                strResultado = generateJson("num_Manifiesto,0155,2");
-            else
-                strResultado = generateJson("num_Manifiesto,-1,2");
-            return strResultado;
+                if (marca != null && linea != null && modelo != null && fecha_Entrada != null && pais_Origen != null)
+                    strResultado = InsertarManifiesto(marca, linea, modelo, fecFechaEntrega, pais_Origen);
+                else
+                    strResultado = generateJson("num_Manifiesto,-1,2;status,1,2;descripcion,Tipo de Parametros Incorrecto,1");
+                return strResultado;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return generateJson("num_Manifiesto,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1"); ;
+            }
         }
 
         [WebMethod]
         public string guardar_Declaracion(string marca, string linea, string modelo, double precio, string fecha_Declaracion)
         {
-            string strResultado = "";
-            if (marca == "")
-                marca = null;
-            if (linea == "")
-                linea = null;
-            if (modelo == "")
-                modelo = null;
-            if (fecha_Declaracion == "")
-                fecha_Declaracion = null;
-            if (precio == 0)
-                precio = -1;
+            string strResultado;
+            DateTime fecFechaDeclaracion = DateTime.MinValue;
+            try
+            {
+                strResultado = "";
+                if (String.IsNullOrEmpty(marca)) { marca = null; }
+                if (String.IsNullOrEmpty(linea)) { linea = null; }
+                if (String.IsNullOrEmpty(modelo)) { modelo = null; }
+                if (!String.IsNullOrEmpty(fecha_Declaracion)) { fecFechaDeclaracion = DateTime.Parse(fecha_Declaracion); }
+                if (precio == 0) { precio = -1; }
 
-            if (marca != null && linea != null && modelo != null && fecha_Declaracion != null && precio != -1)
-                strResultado = generateJson("num_Declaracion,0123,2");
-            else
-                strResultado = generateJson("num_Declaracion,-1,2");
-            return strResultado;
+                if (marca != null && linea != null && modelo != null && fecha_Declaracion != null && precio != -1)
+                    strResultado = InsertarDeclaracion(marca, linea, modelo, fecFechaDeclaracion, precio);
+                else
+                    strResultado = generateJson("num_Declaracion,-1,2;status,1,2;descripcion,Tipo de Parametros Incorrecto,1");
+                return strResultado;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return generateJson("num_Declaracion,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1"); ;
+            }
+        }
+
+        private string ConsultarImpuesto(string strMarca, string strLinea, string strModelo)
+        {
+            ConexionDB objAccesoDatos;
+            DataSet datDatos;
+            string strQuery = null;
+            string strAtributos = null;
+            try
+            {
+                objAccesoDatos = new ConexionDB();
+                strQuery = " SELECT Factor "
+                         + " FROM Linea LI "
+                         + " JOIN Marca MA ON LI.Marca = MA.ID_Marca "
+                         + " WHERE LI.Nombre LIKE '%" + strLinea + "%' "
+                         + " AND MA.Nombre LIKE '%" + strMarca + "%' ";
+
+                Console.Write(strQuery);
+
+                datDatos = objAccesoDatos.selectDB(strQuery);
+                strAtributos = "valor,-1,2;status,1,2;descripcion,No Existe Ningun Factor para los Parametros dados,1";
+                if (datDatos != null && datDatos.Tables[0].Rows.Count > 0)
+                {
+                    double decFactor = double.Parse(datDatos.Tables[0].Rows[0]["Factor"].ToString());
+                    int intAñoActual = DateTime.Now.Year;
+                    int intModelo = int.Parse(strModelo);
+                    double decValor = decFactor + (1000 / (intAñoActual - intModelo + 1)) + 200;
+                    strAtributos = "valor,"+ decValor + ",2;status,0,2;descripcion,Exitoso,1";
+                }
+                return generateJson(strAtributos);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return generateJson("valor,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        private string RegistrarCompra(int intIDTransferencia, double decMonto)
+        {
+            ConexionDB objAccesoDatos;
+            string strResultado = null;
+            string strQuery = null;
+            string strIdentificador = null;
+            try
+            {
+                objAccesoDatos = new ConexionDB();
+                strIdentificador = GenerarIdentificador();
+
+                strQuery = "INSERT Compra(ID_Transferencia, Monto) ";
+                strQuery += "VALUES ('" + strIdentificador + "','" + decMonto + "'); ";
+                if (objAccesoDatos.modificarDB(strQuery) == 1)
+                    strResultado = generateJson("status,0,2;descripcion,Exitoso,1");
+                else
+                    strResultado = generateJson("status,1,2;descripcion,No se pudo Insertar el Registro de Compra en la BD,1");
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return generateJson("status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        private string InsertarManifiesto(string strMarca, string strLinea, string strModelo, DateTime fecFechaEntrega, string strPaisOrigen)
+        {
+            ConexionDB objAccesoDatos;
+            string strResultado = null;
+            string strQuery = null;
+            string strIdentificador = null;
+            try
+            {
+                objAccesoDatos = new ConexionDB();
+                strIdentificador = GenerarIdentificador();
+
+                strQuery =  "INSERT Manifiesto(Identificador, Marca, Linea, Modelo, Fecha_Entrega, Pais_Origen) ";
+                strQuery += "VALUES ('" + strIdentificador + "','" + strMarca + "','" + strLinea + "','" + strModelo + "','" + fecFechaEntrega.ToString("yyyy/MM/dd") + "','" + strPaisOrigen + "') ";
+                if (objAccesoDatos.modificarDB(strQuery) == 1)
+                    strResultado = generateJson("num_Manifiesto," + strIdentificador + ",2;status,0,2;descripcion,Exitoso,1");
+                else
+                    strResultado = generateJson("num_Manifiesto," + "-1" + ",2;status,1,2;descripcion,No se pudo Insertar el Manifiesto en la BD,1");
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return generateJson("num_Manifiesto,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        private string InsertarDeclaracion(string strMarca, string strLinea, string strModelo, DateTime fecFechaDeclaracion, double decPrecio)
+        {
+            ConexionDB objAccesoDatos;
+            string strResultado = null;
+            string strQuery = null;
+            string strIdentificador = null;
+            try
+            {
+                objAccesoDatos = new ConexionDB();
+                strIdentificador = GenerarIdentificador();
+                strQuery = "INSERT Declaracion(Identificador, Marca, Linea, Modelo, Fecha_Declaracion, Precio) ";
+                strQuery += "VALUES ('" + strIdentificador + "','" + strMarca + "','" + strLinea + "','" + strModelo + "','" + fecFechaDeclaracion.ToString("yyyy/MM/dd") + "','" + decPrecio + "') ";
+                if (objAccesoDatos.modificarDB(strQuery) == 1)
+                    strResultado = generateJson("num_Declaracion," + strIdentificador + ",2;status,0,2;descripcion,Exitoso,1");
+                else
+                    strResultado = generateJson("num_Declaracion," + "-1" + ",2;status,1,2;descripcion,No se pudo Insertar la Declaracion en la BD,1");
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return generateJson("num_Declaracion,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        //GENERACION DE IDENTIFICADOR UNICO
+        private string GenerarIdentificador()
+        {
+            DateTime fecFechaActual = DateTime.Now;
+            string strIdentificador = null;
+            strIdentificador = fecFechaActual.Year.ToString() + fecFechaActual.Month.ToString() + fecFechaActual.Day.ToString();
+            strIdentificador += fecFechaActual.Hour.ToString() + fecFechaActual.Minute.ToString() + fecFechaActual.Millisecond.ToString();
+            return strIdentificador;
         }
 
         string strPlantilla = "\"{0}\": {1}";

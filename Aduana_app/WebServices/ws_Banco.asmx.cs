@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -20,38 +21,148 @@ namespace Aduana_app.Web_Services
         [WebMethod]
         public string transferencia_Cuenta(string cuenta_Origen, string cuenta_Destino, double monto)
         {
-            string strResultado = "";
-            if (cuenta_Origen != null && cuenta_Destino != null && monto >= 1000)
+            string strResultado;
+            try
             {
-                string strAtributos = "id_Transferencia,30004999,1;"
-                                    + "respuesta,true,1;"
-                                    + "detalle_Transferencia,Transferencia Exitosa,1";
-                strResultado = generateJson(strAtributos);
+                strResultado = "";
+                int intCuentaOrigen = -1;
+                int intCuentaDestino = -1;
+                if (!String.IsNullOrEmpty(cuenta_Origen)) { intCuentaOrigen = int.Parse(cuenta_Origen); }
+                if (!String.IsNullOrEmpty(cuenta_Destino)) { intCuentaDestino = int.Parse(cuenta_Destino); }
+                if (monto == 0) { monto = -1; }
+
+                if (intCuentaOrigen != -1 && intCuentaDestino != -1 && monto != -1)
+                    strResultado = ConsultarDatos(intCuentaOrigen, intCuentaDestino, monto);
+                else
+                    strResultado = generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Parametros de Entrada Invalidos,1");
+
+                return strResultado;
             }
-            else if(cuenta_Origen != null && cuenta_Destino != null && monto < 1000)
+            catch (Exception ex)
             {
-                string strAtributos = "id_Transferencia,-1,1;"
-                                    + "respuesta,false,1;"
-                                    + "detalle_Transferencia,Saldo Insuficiente,1";
-                strResultado = generateJson(strAtributos);
+                Console.Write(ex);
+                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
             }
-            else if (cuenta_Origen != null && monto > 1000)
-            {
-                string strAtributos = "id_Transferencia,-1,1;"
-                                    + "respuesta,false,1;"
-                                    + "detalle_Transferencia,Cuenta Inexistente,1";
-                strResultado = generateJson(strAtributos);
-            }
-            else
-            {
-                string strAtributos = "id_Transferencia,-1,1;"
-                                    + "respuesta,false,1;"
-                                    + "detalle_Transferencia,Transferencia Fallo,1";
-                strResultado = generateJson(strAtributos);
-            }
-            return strResultado;
         }
-        
+
+
+        private string InsertarTransferencia(int intCuentaOrigen, int intCuentaDestino, double decMonto)
+        {
+            ConexionDB objAccesoDatos;
+            string strResultado = null;
+            string strIdTransferencia = null;
+            string strQuery = null;
+            string strQueryActualizarOrigen = null;
+            string strQueryActualizarDestino = null;
+            try
+            {
+                strIdTransferencia = GenerarIdentificador();
+                objAccesoDatos = new ConexionDB();
+                strQuery = "INSERT Transferencia(No_Transferencia, ID_CuentaOrigen, ID_CuentaDestino, Monto) "
+                         + "VALUES ('"+ strIdTransferencia + "','" + intCuentaOrigen + "','" + intCuentaDestino + "','" + decMonto + "'); ";
+
+                strQueryActualizarOrigen = "UPDATE Cuenta "
+                                   + "SET Saldo = Saldo - " + decMonto + " "
+                                   + "WHERE ID_Cuenta = '" + intCuentaOrigen + "'";
+
+                strQueryActualizarDestino = "UPDATE Cuenta "
+                                   + "SET Saldo = Saldo + " + decMonto + " " 
+                                   + "WHERE ID_Cuenta = '" + intCuentaDestino + "'";
+
+                if (objAccesoDatos.modificarDB(strQuery) == 1 && objAccesoDatos.modificarDB(strQueryActualizarOrigen) == 1 && objAccesoDatos.modificarDB(strQueryActualizarDestino) == 1)
+                    strResultado = generateJson("id_Transferecia," + strIdTransferencia + ",2;status,0,2;descripcion,Transferencia Exitosa,1");
+                else
+                    strResultado = generateJson("id_Transferecia," + "-1" + ",2;status,1,2;descripcion,Transferencia Fallida, Insersion Fallida en la BD,1");
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        private string ConsultarDatos(int intNoTarjetaOrigen, int intNoTarjetaDestino, double decMonto)
+        {
+            ConexionDB objAccesoDatos;
+            DataSet datDatosCuenta;
+            string strResultado = null;
+            string strQuery = null;
+            int intCuentaOrigen = -1;
+            int intCuentaDestino = -1;
+            try
+            {
+                objAccesoDatos = new ConexionDB();
+                //VERIFICAR SI EXISTEN LAS CUENTAS
+                strQuery = "SELECT C.ID_Cuenta, CT.Nombre "
+                         + "FROM Cuenta_Tarjeta CT "
+                         + "JOIN Cuenta C ON C.ID_Cuenta = CT.ID_Cuenta "
+                         + "WHERE CT.No_Tarjeta IN ('" + intNoTarjetaOrigen + "', '" + intNoTarjetaDestino + "');";
+
+                datDatosCuenta = objAccesoDatos.selectDB(strQuery);
+                int intCantidadDatos = datDatosCuenta.Tables[0].Rows.Count;
+                if (datDatosCuenta != null && intCantidadDatos > 0)
+                {
+                    string strNombreCuentaEncontrada = datDatosCuenta.Tables[0].Rows[0]["Nombre"].ToString();
+                    intCuentaOrigen = int.Parse(datDatosCuenta.Tables[0].Rows[0]["ID_Cuenta"].ToString());
+                    if (intCantidadDatos > 1)
+                    { intCuentaDestino = int.Parse(datDatosCuenta.Tables[0].Rows[1]["ID_Cuenta"].ToString()); }
+                    else
+                    { strResultado = generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Solo se encontro registro de la Cuenta de la Tarjeta de: " + strNombreCuentaEncontrada + ". La otra cuenta es Inexistente.,1"); }    
+                }
+                else
+                {
+                    strResultado = generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Las 2 Cuentas son Inexistentes,1");
+                }
+
+                if (strResultado == null)
+                {
+                    //VERIFICAR SI LA CUENTA ORIGEN POSEE SALDO SUFICIENTE
+                    strQuery = "SELECT No_Cuenta "
+                             + "FROM Cuenta "
+                             + "WHERE ID_Cuenta = '"+ intCuentaOrigen +"' "
+                             + "AND Saldo > " + decMonto ;
+
+                    datDatosCuenta = objAccesoDatos.selectDB(strQuery);
+                    intCantidadDatos = datDatosCuenta.Tables[0].Rows.Count;
+                    if (datDatosCuenta == null || intCantidadDatos == 0)
+                    {
+                        strResultado = generateJson("id_Transferecia,-1,2;status,1,2;descripcion,La Cuenta Origen no posee Saldo Suficiente para realizar la Transaccion,1");
+                    }
+                    else
+                    {
+                        //INSERTAR TRANSACCION CON LAS CUENTAS ORIGEN Y DESTINO
+                        strResultado = InsertarTransferencia(intCuentaOrigen, intCuentaDestino, decMonto);
+                    }
+                }
+                
+                return strResultado;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        //GENERACION DE IDENTIFICADOR UNICO
+        private string GenerarIdentificador()
+        {
+            DateTime fecFechaActual = DateTime.Now;
+            string strIdentificador = null;
+            strIdentificador = fecFechaActual.Year.ToString() + fecFechaActual.Month.ToString() + fecFechaActual.Day.ToString();
+            strIdentificador += fecFechaActual.Hour.ToString() + fecFechaActual.Minute.ToString() + fecFechaActual.Millisecond.ToString();
+            return strIdentificador;
+        }
+
         string strPlantilla = "\"{0}\": {1}";
         // NOMBRE_ATRIBUTO, VALOR, TIPO(1: String, Boolean & 2: Double, Integer); 
         public string generateJson(string atributos)

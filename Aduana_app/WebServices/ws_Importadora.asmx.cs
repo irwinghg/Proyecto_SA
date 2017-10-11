@@ -48,8 +48,8 @@ namespace Aduana_app.Web_Services
         {
             ConexionDB dbconn = new ConexionDB();
 
-            dbconn.datos();
-                string strRespuesta = "";
+            //dbconn.datos();
+            string strRespuesta = "";
             if (username.Equals("admin") && password.Equals("12345"))
             {
                 //se crea nuevo numero de cuenta
