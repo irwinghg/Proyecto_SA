@@ -93,6 +93,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConexionesDB\ConexionDB_Banco.cs" />
+    <Compile Include="ConexionesDB\ConexionDB_SAT.cs" />
     <Compile Include="ConexionesDB\ConexionDB_Aduana.cs" />
     <Compile Include="ConexionesDB\ConexionDB_Envios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

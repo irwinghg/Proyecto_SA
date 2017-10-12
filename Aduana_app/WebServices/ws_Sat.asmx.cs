@@ -124,13 +124,13 @@ namespace Aduana_app.Web_Services
 
         private string ConsultarImpuesto(string strMarca, string strLinea, string strModelo)
         {
-            ConexionDB objAccesoDatos;
+            ConexionDB_SAT objAccesoDatos;
             DataSet datDatos;
             string strQuery = null;
             string strAtributos = null;
             try
             {
-                objAccesoDatos = new ConexionDB();
+                objAccesoDatos = new ConexionDB_SAT();
                 strQuery = " SELECT Factor "
                          + " FROM Linea LI "
                          + " JOIN Marca MA ON LI.Marca = MA.ID_Marca "
@@ -164,13 +164,13 @@ namespace Aduana_app.Web_Services
 
         private string RegistrarCompra(int intIDTransferencia, double decMonto)
         {
-            ConexionDB objAccesoDatos;
+            ConexionDB_SAT objAccesoDatos;
             string strResultado = null;
             string strQuery = null;
             string strIdentificador = null;
             try
             {
-                objAccesoDatos = new ConexionDB();
+                objAccesoDatos = new ConexionDB_SAT();
                 strIdentificador = GenerarIdentificador();
 
                 strQuery = "INSERT Compra(ID_Transferencia, Monto) ";
@@ -194,13 +194,13 @@ namespace Aduana_app.Web_Services
 
         private string InsertarManifiesto(string strMarca, string strLinea, string strModelo, DateTime fecFechaEntrega, string strPaisOrigen)
         {
-            ConexionDB objAccesoDatos;
+            ConexionDB_SAT objAccesoDatos;
             string strResultado = null;
             string strQuery = null;
             string strIdentificador = null;
             try
             {
-                objAccesoDatos = new ConexionDB();
+                objAccesoDatos = new ConexionDB_SAT();
                 strIdentificador = GenerarIdentificador();
 
                 strQuery =  "INSERT Manifiesto(Identificador, Marca, Linea, Modelo, Fecha_Entrega, Pais_Origen) ";
@@ -224,13 +224,13 @@ namespace Aduana_app.Web_Services
 
         private string InsertarDeclaracion(string strMarca, string strLinea, string strModelo, DateTime fecFechaDeclaracion, double decPrecio)
         {
-            ConexionDB objAccesoDatos;
+            ConexionDB_SAT objAccesoDatos;
             string strResultado = null;
             string strQuery = null;
             string strIdentificador = null;
             try
             {
-                objAccesoDatos = new ConexionDB();
+                objAccesoDatos = new ConexionDB_SAT();
                 strIdentificador = GenerarIdentificador();
                 strQuery = "INSERT Declaracion(Identificador, Marca, Linea, Modelo, Fecha_Declaracion, Precio) ";
                 strQuery += "VALUES ('" + strIdentificador + "','" + strMarca + "','" + strLinea + "','" + strModelo + "','" + fecFechaDeclaracion.ToString("yyyy/MM/dd") + "','" + decPrecio + "') ";

@@ -48,7 +48,7 @@ namespace Aduana_app.Web_Services
 
         private string InsertarTransferencia(int intCuentaOrigen, int intCuentaDestino, double decMonto)
         {
-            ConexionDB objAccesoDatos;
+            ConexionDB_SAT objAccesoDatos;
             string strResultado = null;
             string strIdTransferencia = null;
             string strQuery = null;
@@ -57,7 +57,7 @@ namespace Aduana_app.Web_Services
             try
             {
                 strIdTransferencia = GenerarIdentificador();
-                objAccesoDatos = new ConexionDB();
+                objAccesoDatos = new ConexionDB_SAT();
                 strQuery = "INSERT Transferencia(No_Transferencia, ID_CuentaOrigen, ID_CuentaDestino, Monto) "
                          + "VALUES ('"+ strIdTransferencia + "','" + intCuentaOrigen + "','" + intCuentaDestino + "','" + decMonto + "'); ";
 
@@ -88,7 +88,7 @@ namespace Aduana_app.Web_Services
 
         private string ConsultarDatos(int intNoTarjetaOrigen, int intNoTarjetaDestino, double decMonto)
         {
-            ConexionDB objAccesoDatos;
+            ConexionDB_SAT objAccesoDatos;
             DataSet datDatosCuenta;
             string strResultado = null;
             string strQuery = null;
@@ -96,7 +96,7 @@ namespace Aduana_app.Web_Services
             int intCuentaDestino = -1;
             try
             {
-                objAccesoDatos = new ConexionDB();
+                objAccesoDatos = new ConexionDB_SAT();
                 //VERIFICAR SI EXISTEN LAS CUENTAS
                 strQuery = "SELECT C.ID_Cuenta, CT.Nombre "
                          + "FROM Cuenta_Tarjeta CT "
