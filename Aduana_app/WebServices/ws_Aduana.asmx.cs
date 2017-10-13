@@ -23,15 +23,15 @@ namespace Aduana_app.Web_Services
             if (marca == "")
                 marca = null;
             if (linea == "")
-                marca = null;
+                linea = null;
             if (modelo == "")
-                marca = null;
+                modelo = null;
 
             if (marca != null && linea != null && modelo != null)
                 strResultado = generateJson("costo_Aduana,135.57,2");
             else
                 strResultado = generateJson("costo_Aduana,-1,2");
-            return "0";
+            return strResultado;
         }
 
         [WebMethod]
