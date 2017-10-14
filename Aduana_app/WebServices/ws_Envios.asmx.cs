@@ -33,7 +33,7 @@ namespace Aduana_app.Web_Services
             try
             {
                 ConexionDB_Envios conn = new ConexionDB_Envios();
-                string sqlCommand = "select ln.ID_linea, mc.nombre as marca, ln.nombre as linea, '2017' as modelo, 'GT' as pais_origen, (ln.factor* 1000) as precio_vehiculo " +
+                string sqlCommand = "select ln.ID_linea, mc.nombre as marca, ln.nombre as linea, '2017' as modelo, mc.pais as pais_origen, (ln.factor* 1000) as precio_vehiculo " +
                         " from linea ln " +
                         " join marca mc on mc.ID_marca = ln.marca;";
                 DataSet resultado = conn.selectDB(sqlCommand);
@@ -43,11 +43,12 @@ namespace Aduana_app.Web_Services
                 {
                     foreach (DataRow dr in resultado.Tables[0].Rows)
                     {
+                        Random rn = new Random();
                         vehiculo objVehiculo = new vehiculo();
                         objVehiculo.id_vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
                         objVehiculo.marca = dr["marca"].ToString();
                         objVehiculo.linea = dr["linea"].ToString();
-                        objVehiculo.modelo = Convert.ToInt32(dr["modelo"].ToString());
+                        objVehiculo.modelo = Convert.ToInt32(rn.Next(1980, 2018));
                         objVehiculo.pais_Origen = dr["pais_origen"].ToString();
                         objVehiculo.precio_vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
                         listadoVehiculos.Add(objVehiculo);
@@ -86,9 +87,9 @@ namespace Aduana_app.Web_Services
             try
             {
                 ConexionDB_Envios conn = new ConexionDB_Envios();
-                string sqlCommand = "select '2017' as modelo, 'GT' as pais_origen, CAST((ln.factor* 1000)*0.04 AS DECIMAL(18,0)) as precio_vehiculo " +
+                string sqlCommand = "select '2017' as modelo, mc.pais as pais_origen, CAST((ln.factor* 1000)*0.04 AS DECIMAL(18,0)) as precio_vehiculo " +
                      " from linea ln " +
-                     " join marca mc on mc.ID_marca = ln.marca where ln.ID_linea = "+Convert.ToString(id_vehiculo)+" ; ";
+                     " join marca mc on mc.ID_marca = ln.marca where ln.ID_linea = "+Convert.ToString(id_vehiculo)+ " ; ";
                 DataSet resultado = conn.selectDB(sqlCommand);
                 
                 if (resultado != null && resultado.Tables[0].Rows.Count > 0)
@@ -121,6 +122,66 @@ namespace Aduana_app.Web_Services
             }
         }
 
+        [WebMethod]
+        public string obtener_Datos_Vehiculo(int id_vehiculo) {
+            try
+            {
+                ConexionDB_Envios conn = new ConexionDB_Envios();
+                string sqlCommand = "select ln.ID_linea, mc.nombre as marca, ln.nombre as linea, '2017' as modelo, mc.pais as pais_origen, (ln.factor* 1000) as precio_vehiculo " +
+                        " from linea ln " +
+                        " join marca mc on mc.ID_marca = ln.marca "+
+                        " where ln.ID_linea ="+Convert.ToString(id_vehiculo)+";";
+                DataSet resultado = conn.selectDB(sqlCommand);
+                List<vehiculo> listadoVehiculos = new List<vehiculo>();
+                vehiculo objVehiculo = new vehiculo();
+                if (resultado != null && resultado.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in resultado.Tables[0].Rows)
+                    {
+                        Random rn = new Random();
+                        
+                        objVehiculo.id_vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
+                        objVehiculo.marca = dr["marca"].ToString();
+                        objVehiculo.linea = dr["linea"].ToString();
+                        objVehiculo.modelo = Convert.ToInt32(rn.Next(1980, 2018));
+                        objVehiculo.pais_Origen = dr["pais_origen"].ToString();
+                        objVehiculo.precio_vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
+                        
+                        break;
+                    }
+                }
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    marca = objVehiculo.marca,
+                    linea = objVehiculo.linea,
+                    modelo = objVehiculo.modelo,
+                    pais_Origen = objVehiculo.pais_Origen,
+                    precio_Vehiculos = objVehiculo.precio_vehiculo,
+                    status = 0,
+                    descripcion = "Exitoso"
+
+                });
+
+                return json;
+            }
+            catch (Exception e)
+            {
+                var json = JsonConvert.SerializeObject(new
+                {
+                    marca = "",
+                    linea ="",
+                    modelo =0,
+                    pais_Origen ="",
+                    precio_Vehiculos = 0,
+                    status = 1,
+                    descripcion = "Error con la conexión a la BD de Envios"
+
+                });
+
+                return json;
+            }
+        }
 
         [WebMethod]
         public string guardar_Transferencia(int id_transferencia, long monto)

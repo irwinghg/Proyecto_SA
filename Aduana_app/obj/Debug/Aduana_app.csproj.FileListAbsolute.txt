@@ -151,3 +151,20 @@ C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Proyecto_SA_Fase2
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Proyecto_SA_Fase2\Proyecto_SA\Aduana_app\bin\Aduana_app.pdb
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Proyecto_SA_Fase2\Proyecto_SA\Aduana_app\bin\nunit.framework.dll
 C:\Users\richa\OneDrive\Documentos\Visual Studio 2015\Projects\Proyecto_SA_Fase2\Proyecto_SA\Aduana_app\bin\nunit.framework.xml
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\NUnit3.TestAdapter.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\nunit.engine.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\nunit.engine.api.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Mono.Cecil.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Pdb.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Mdb.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Rocks.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Aduana_app.dll.config
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Aduana_app.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Aduana_app.pdb
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Newtonsoft.Json.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\nunit.framework.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\Newtonsoft.Json.xml
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\bin\nunit.framework.xml
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.csprojResolveAssemblyReference.cache
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.dll
+C:\Users\Fernando\Desktop\[SA]ProyectoFase2\Proyecto_SA\Aduana_app\obj\Debug\Aduana_app.pdb

@@ -9,8 +9,10 @@ create database bancos_sa;
 use database envios_sa;
 CREATE TABLE Marca (
     ID_marca int IDENTITY(1,1) PRIMARY KEY,
-    nombre nvarchar(50) NOT NULL
+    nombre nvarchar(50) NOT NULL,
+    pais nvarchar(50) not null
 );
+
 
 
 CREATE TABLE Linea (
@@ -29,6 +31,20 @@ CREATE TABLE Transferencia (
 
 );
 
+CREATE TABLE pais (
+    ID_pais int IDENTITY(1,1) PRIMARY KEY,
+    nombre nvarchar(50) NOT NULL,
+    factor decimal (10,2) not null
+);
+
+
+insert into pais(nombre, factor) values('China', 1.2);
+insert into pais(nombre, factor) values('Estados Unidos',3.2);
+insert into pais(nombre, factor) values('Colombia', 1.5);
+insert into pais(nombre, factor) values('Venezuela',0.5);
+insert into pais(nombre, factor) values('Brazil', 2.1);
+insert into pais(nombre, factor) values('Italia', 3.4);
+insert into pais(nombre, factor) values('Guatemala',1.3)
 
 
 use database aduana_sa;
@@ -40,3 +56,5 @@ CREATE TABLE Transferencia (
 	fecha_hora DATETIME
 
 );
+
+
