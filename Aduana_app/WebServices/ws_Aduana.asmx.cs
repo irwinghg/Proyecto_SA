@@ -56,8 +56,9 @@ namespace Aduana_app.Web_Services
 
                 return json;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 var json = JsonConvert.SerializeObject(new
                 {
                     costo_Aduana = 0,
@@ -102,8 +103,9 @@ namespace Aduana_app.Web_Services
 
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 var json = JsonConvert.SerializeObject(new
                 {
                     status = 1,

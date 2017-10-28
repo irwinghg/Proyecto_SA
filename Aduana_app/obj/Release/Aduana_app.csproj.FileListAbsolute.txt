@@ -33,3 +33,20 @@ C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\bin\nunit.framework
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Release\Aduana_app.csprojResolveAssemblyReference.cache
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Release\Aduana_app.dll
 C:\Users\yonkis\Documents\SA\Practica1\Desarrollo\Aduana_app\obj\Release\Aduana_app.pdb
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\NUnit3.TestAdapter.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\nunit.engine.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\nunit.engine.api.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Mono.Cecil.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Pdb.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Mdb.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Mono.Cecil.Rocks.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Aduana_app.dll.config
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Aduana_app.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Aduana_app.pdb
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Newtonsoft.Json.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\nunit.framework.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\Newtonsoft.Json.xml
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\bin\nunit.framework.xml
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\obj\Release\Aduana_app.csprojResolveAssemblyReference.cache
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\obj\Release\Aduana_app.dll
+C:\Users\richa\Desktop\repo sa\Proyecto_SA\Aduana_app\obj\Release\Aduana_app.pdb

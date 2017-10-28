@@ -32,6 +32,7 @@ namespace Aduana_app
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return 0;
             }
         }
@@ -56,6 +57,7 @@ namespace Aduana_app
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;                
             }
         }
@@ -74,7 +76,7 @@ namespace Aduana_app
             {
                 source = sources[0].InnerText;
                 database = databases[0].InnerText;
-                connetionString = "Data Source=" + source + ";Initial Catalog=" + database + ";Integrated Security=True";
+                connetionString = "Data Source=" + source + ";Initial Catalog=" + database + ";Persist Security Info=False;User ID=Administrador;Password=Acceso1234#";
             }
             return connetionString;
         }

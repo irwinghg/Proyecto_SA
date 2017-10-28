@@ -14,7 +14,7 @@ namespace Aduana_app.Tests
         {
             ws_Aduana objAduana = new ws_Aduana();
             string strResultado = objAduana.calcular_Costo_Aduana("Honda", "Civic", "2010");
-            Assert.AreEqual("{\"costo_Aduana\": 135.57}", strResultado);
+            Assert.AreEqual("{\"costo_Aduana\":114580,\"status\":0,\"descripcion\":\"Exitoso\"}", strResultado);
         }
 
         [TestCase]
@@ -22,7 +22,7 @@ namespace Aduana_app.Tests
         {
             ws_Aduana objAduana = new ws_Aduana();
             string strResultado = objAduana.guardar_Id_Transferencia(1209990, 90000);
-            Assert.AreEqual("{\"respuesta\": \"true\"}", strResultado);
+            Assert.AreEqual("{\"status\":1,\"descripcion\":\"Exitoso\"}", strResultado);
         }
     }
 }

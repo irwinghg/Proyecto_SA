@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Properties\PublishProfiles\webservice.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConexionesDB\ConexionDB_Banco.cs" />
+    <Compile Include="ConexionesDB\ConexionDB_Importadora.cs" />
     <Compile Include="ConexionesDB\ConexionDB_SAT.cs" />
     <Compile Include="ConexionesDB\ConexionDB_Aduana.cs" />
     <Compile Include="ConexionesDB\ConexionDB_Envios.cs" />

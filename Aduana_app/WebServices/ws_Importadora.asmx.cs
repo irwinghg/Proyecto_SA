@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -16,113 +18,199 @@ namespace Aduana_app.Web_Services
     // [System.Web.Script.Services.ScriptService]
     public class ws_Importadora : System.Web.Services.WebService
     {
-
-        /*[WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World"; 
-        }*/
-
+    
         [WebMethod]
         public string validar_Sesion(string username, string password)
         {
-            string strRespuesta = "";
-            if (username.Equals("admin") && password.Equals("12345"))
+            DataSet datDatos;
+            string strNombre = "";
+            string strNoTarjeta = "";
+            int intStatus = 1;
+            string strDescripcion = "Usuario o contraseña incorrectos.";
+            try
             {
-                strRespuesta = "true";
-            }
-            else {
-                strRespuesta = "false";
-            }
+                datDatos = ConsultarCuenta(null, username, password, null);
+                if (datDatos != null && datDatos.Tables[0].Rows.Count > 0)
+                {
+                    strNombre = datDatos.Tables[0].Rows[0]["Nombre"].ToString();
+                    strNoTarjeta = datDatos.Tables[0].Rows[0]["No_Tarjeta"].ToString();
+                    intStatus = 0;
+                    strDescripcion = "Validación correcta";
+                }
 
-            return "{"+getJson("respuesta",strRespuesta)+"}" ;
+                var json = JsonConvert.SerializeObject(new
+                {
+                    nombre = strNombre,
+                    no_Tarjeta = strNoTarjeta,
+                    status = intStatus,
+                    descripcion = strDescripcion
+
+                });
+
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                var json = JsonConvert.SerializeObject(new
+                {
+                    nombre = "",
+                    no_Tarjeta = "",
+                    status = 1,
+                    descripcion = "Ocurrio un Error Inesperado en el Sistema."
+                });
+
+                return json;
+            }
 		}
 
-
-		/**
-		 *	Metodo 
-		 *
-		*/
         [WebMethod]
         public string crear_Cuenta(string nombre, string username, string password, string no_tarjeta)
         {
-            string strRespuesta = "";
-            if (username.Equals("admin") && password.Equals("12345"))
+            DataSet datDatos;
+            int intStatus = 1;
+            string strDescripcion = "Username ya existente.";
+            try
             {
-                //se crea nuevo numero de cuenta
-                if (no_tarjeta != null)
+                datDatos = ConsultarCuenta(null, username, null, null);
+                if (datDatos == null || datDatos.Tables[0].Rows.Count == 0)
                 {
-                    strRespuesta = "true";
+                    if (InsertarCuenta(nombre, username, password, no_tarjeta) == 1)
+                    {
+                        intStatus = 0;
+                        strDescripcion = "Exitoso";
+                    }
+                    else
+                    {
+                        intStatus = 1;
+                        strDescripcion = "No se pudo Insertar la Cuenta en la BD.";
+                    }
                 }
-                else {
-                    strRespuesta = "false";
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    status = intStatus,
+                    descripcion = strDescripcion
+                });
+
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                var json = JsonConvert.SerializeObject(new
+                {
+                    status = 1,
+                    descripcion = "Ocurrio un Error Inesperado en el Sistema."
+                });
+
+                return json;
+            }
+        }
+
+        private int InsertarCuenta(string strNombre, string strUsername, string strPassword, string strNoTarjeta)
+        {
+            ConexionDB_Importadora objAccesoDatos;
+            string strQuery = null;
+            try
+            {
+                objAccesoDatos = new ConexionDB_Importadora();
+                strQuery = "INSERT Usuario(Username, Nombre, Pass, No_Tarjeta) ";
+                strQuery += "VALUES ('" + strUsername + "','" + strNombre + "','" + strPassword + "','" + strNoTarjeta + "') ";
+                if (objAccesoDatos.modificarDB(strQuery) == 1) { return 1; }
+                return -1;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return -1;
+            }
+            finally
+            {
+                objAccesoDatos = null;
+            }
+        }
+
+        private DataSet ConsultarCuenta(string strNombre, string strUsername, string strPassword, string strNoTarjeta)
+        {
+            ConexionDB_Importadora objAccesoDatos;
+            DataSet datDatosCuenta;
+            string strQuery = null;
+            string strWhere = null;
+            try
+            {
+                objAccesoDatos = new ConexionDB_Importadora();
+                if (strNombre != null)
+                {
+                    strWhere += " WHERE "; 
+                    strWhere += " Nombre = '" + strNombre + "'";
+                }
+
+                if (strUsername != null) {
+                    if (strWhere != null) { strWhere += " AND "; } else { strWhere += " WHERE "; }
+                    strWhere += " Username = '" + strUsername + "'";
+                }
+
+                if (strPassword != null)
+                {
+                    if (strWhere != null) { strWhere += " AND "; } else { strWhere += " WHERE "; }
+                    strWhere += " Pass = '" + strPassword + "'";
+                }
+
+                if (strNoTarjeta != null)
+                {
+                    if (strWhere != null) { strWhere += " AND "; } else { strWhere += " WHERE "; }
+                    strWhere += " No_Tarjeta = '" + strNoTarjeta + "'";
                 }
                 
+                strQuery = " SELECT Username, Nombre, Pass, No_Tarjeta"
+                         + " FROM Usuario "
+                         + strWhere;
+
+                datDatosCuenta = objAccesoDatos.selectDB(strQuery);
+                
+                return datDatosCuenta;
             }
-            else
+            catch (Exception ex)
             {
-                strRespuesta = "false";
+                Console.Write(ex);
+                return null;
             }
-
-            return "{" + getJson("respuesta", strRespuesta) + "}";
+            finally
+            {
+                objAccesoDatos = null;
+            }
         }
 
-        [WebMethod]
-        public string solicitar_Catalogo_Vehiculos()
+        //GENERACION DE IDENTIFICADOR UNICO
+        private string GenerarIdentificador()
         {
-            string respuesta = "";
-            string auto1 = "{"+getJson("id_Vehiculo",300)+" , "+getJson("marca","Toyota")+ ", " + getJson("linea", "Yaris") + ", " + getJson("modelo", "2010") + "}";
-            string auto2 = "{" + getJson("id_Vehiculo", 310) + " , " + getJson("marca", "Nissan") + ", " + getJson("linea", "Navara") + ", " + getJson("modelo", "2016") + "}";
-            string auto3 = "{" + getJson("id_Vehiculo", 320) + " , " + getJson("marca", "Subaru") + ", " + getJson("linea", "WRX") + ", " + getJson("modelo", "2015") + "}";
-            respuesta = "{\"vehiculos\":[ "+auto1+", "+auto2+", "+auto3+"]}";
-            return respuesta;
+            DateTime fecFechaActual = DateTime.Now;
+            string strIdentificador = null;
+            strIdentificador = fecFechaActual.Year.ToString() + fecFechaActual.Month.ToString() + fecFechaActual.Day.ToString();
+            strIdentificador += fecFechaActual.Hour.ToString() + fecFechaActual.Minute.ToString() + fecFechaActual.Millisecond.ToString();
+            return strIdentificador;
         }
 
-
-        [WebMethod]
-        public string cotizar_Vehiculo(int id_Vehiculo, string marca, string linea, string modelo)
+        string strPlantilla = "\"{0}\": {1}";
+        // NOMBRE_ATRIBUTO, VALOR, TIPO(1: String, Boolean & 2: Double, Integer); 
+        public string generateJson(string atributos)
         {
-            string precio = getJson("precio_Vehiculo", 25000);
-            string precioenvio = getJson("precio_Envio", 3000);
-            string impuestosat = getJson("impuesto_Sat", 200);
-            string iva = getJson("iva", 100);
-            string isr = getJson("isr", 300);
-            string respuesta = "{" + precio + "," + precioenvio + "," + impuestosat + "," + iva + "," + isr + "}";
-            return respuesta;
-        }
+            string strResultado = "";
+            string[] arrAtributos = atributos.Split(';');
+            for (int i = 0; i < arrAtributos.Length; i++)
+            {
+                string[] arrAtributo = arrAtributos[i].Split(',');
+                string strTipo = "";
+                if (int.Parse(arrAtributo[2]) == 1)
+                    strTipo += '"';
 
-        [WebMethod]
-        public string comprar_Vehiculo(int id_Cliente, string no_Tarjeta, int id_Vehiculo, Double precio_Vehiculo, 
-            Double precio_Envio,Double impuesto_sat, Double impuesto_Aduana, Double iva, Double isr)
-        {
-
-            string serie = getJson("serie", "A");
-            string numerofactura = getJson("numero_Factura", "8735");
-
-            return "{" + serie + " , " + numerofactura + "}";
-
-        }
-
-
-        /// <summary>
-        /// Formatea expesiona json string:string
-        /// </summary>
-        /// <param name="atributo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public string getJson(string atributo, string valor)
-        {
-            return string.Format("\"{0}\": \"{1}\"", atributo, valor);
-        }
-        /// <summary>
-        /// Formatea expresiones a json string:int
-        /// </summary>
-        /// <param name="atributo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public string getJson(string atributo, int valor)
-        {
-            return string.Format("\"{0}\": {1}", atributo, valor);
+                if (i == 0)
+                    strResultado += string.Format(strPlantilla, arrAtributo[0], strTipo + arrAtributo[1] + strTipo);
+                else
+                    strResultado += "," + string.Format(strPlantilla, arrAtributo[0], strTipo + arrAtributo[1] + strTipo);
+            }
+            return "{" + strResultado + "}";
         }
 
     }

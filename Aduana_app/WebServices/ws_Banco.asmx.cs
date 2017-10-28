@@ -19,20 +19,20 @@ namespace Aduana_app.Web_Services
     {
 
         [WebMethod]
-        public string transferencia_Cuenta(string cuenta_Origen, string cuenta_Destino, double monto)
+        public string transferencia_Cuenta(string no_Tarjeta, string cuenta_Destino, double monto)
         {
             string strResultado;
             try
             {
                 strResultado = "";
-                int intCuentaOrigen = -1;
-                int intCuentaDestino = -1;
-                if (!String.IsNullOrEmpty(cuenta_Origen)) { intCuentaOrigen = int.Parse(cuenta_Origen); }
-                if (!String.IsNullOrEmpty(cuenta_Destino)) { intCuentaDestino = int.Parse(cuenta_Destino); }
+                long lngCuentaOrigen = -1;
+                long lngCuentaDestino = -1;
+                if (!String.IsNullOrEmpty(no_Tarjeta)) { lngCuentaOrigen = long.Parse(no_Tarjeta); }
+                if (!String.IsNullOrEmpty(cuenta_Destino)) { lngCuentaDestino = long.Parse(cuenta_Destino); }
                 if (monto == 0) { monto = -1; }
 
-                if (intCuentaOrigen != -1 && intCuentaDestino != -1 && monto != -1)
-                    strResultado = ConsultarDatos(intCuentaOrigen, intCuentaDestino, monto);
+                if (lngCuentaOrigen != -1 && lngCuentaDestino != -1 && monto != -1)
+                    strResultado = ConsultarDatos(lngCuentaOrigen, lngCuentaDestino, monto);
                 else
                     strResultado = generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Parametros de Entrada Invalidos,1");
 
@@ -48,7 +48,7 @@ namespace Aduana_app.Web_Services
 
         private string InsertarTransferencia(int intCuentaOrigen, int intCuentaDestino, double decMonto)
         {
-            ConexionDB_SAT objAccesoDatos;
+            ConexionDB_Banco objAccesoDatos;
             string strResultado = null;
             string strIdTransferencia = null;
             string strQuery = null;
@@ -57,7 +57,7 @@ namespace Aduana_app.Web_Services
             try
             {
                 strIdTransferencia = GenerarIdentificador();
-                objAccesoDatos = new ConexionDB_SAT();
+                objAccesoDatos = new ConexionDB_Banco();
                 strQuery = "INSERT Transferencia(No_Transferencia, ID_CuentaOrigen, ID_CuentaDestino, Monto) "
                          + "VALUES ('"+ strIdTransferencia + "','" + intCuentaOrigen + "','" + intCuentaDestino + "','" + decMonto + "'); ";
 
@@ -78,7 +78,7 @@ namespace Aduana_app.Web_Services
             catch (Exception ex)
             {
                 Console.Write(ex);
-                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema 2,1");
             }
             finally
             {
@@ -86,9 +86,9 @@ namespace Aduana_app.Web_Services
             }
         }
 
-        private string ConsultarDatos(int intNoTarjetaOrigen, int intNoTarjetaDestino, double decMonto)
+        private string ConsultarDatos(long lngNoTarjetaOrigen, long lngNoTarjetaDestino, double decMonto)
         {
-            ConexionDB_SAT objAccesoDatos;
+            ConexionDB_Banco objAccesoDatos;
             DataSet datDatosCuenta;
             string strResultado = null;
             string strQuery = null;
@@ -96,12 +96,12 @@ namespace Aduana_app.Web_Services
             int intCuentaDestino = -1;
             try
             {
-                objAccesoDatos = new ConexionDB_SAT();
+                objAccesoDatos = new ConexionDB_Banco();
                 //VERIFICAR SI EXISTEN LAS CUENTAS
                 strQuery = "SELECT C.ID_Cuenta, CT.Nombre "
                          + "FROM Cuenta_Tarjeta CT "
                          + "JOIN Cuenta C ON C.ID_Cuenta = CT.ID_Cuenta "
-                         + "WHERE CT.No_Tarjeta IN ('" + intNoTarjetaOrigen + "', '" + intNoTarjetaDestino + "');";
+                         + "WHERE CT.No_Tarjeta IN ('" + lngNoTarjetaOrigen + "', '" + lngNoTarjetaDestino + "');";
 
                 datDatosCuenta = objAccesoDatos.selectDB(strQuery);
                 int intCantidadDatos = datDatosCuenta.Tables[0].Rows.Count;
@@ -145,7 +145,7 @@ namespace Aduana_app.Web_Services
             catch (Exception ex)
             {
                 Console.Write(ex);
-                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema,1");
+                return generateJson("id_Transferecia,-1,2;status,1,2;descripcion,Ocurrio un Error Inesperado en el Sistema 3,1");
             }
             finally
             {
@@ -158,8 +158,8 @@ namespace Aduana_app.Web_Services
         {
             DateTime fecFechaActual = DateTime.Now;
             string strIdentificador = null;
-            strIdentificador = fecFechaActual.Year.ToString() + fecFechaActual.Month.ToString() + fecFechaActual.Day.ToString();
-            strIdentificador += fecFechaActual.Hour.ToString() + fecFechaActual.Minute.ToString() + fecFechaActual.Millisecond.ToString();
+            strIdentificador = fecFechaActual.Month.ToString() + fecFechaActual.Day.ToString();
+            strIdentificador += fecFechaActual.Hour.ToString() + fecFechaActual.Minute.ToString();
             return strIdentificador;
         }
 

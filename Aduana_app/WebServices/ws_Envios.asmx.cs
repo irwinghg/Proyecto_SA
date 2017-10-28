@@ -19,13 +19,6 @@ namespace Aduana_app.Web_Services
     // [System.Web.Script.Services.ScriptService]
     public class ws_Envios : System.Web.Services.WebService
     {
-
-        /*[WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World";
-        }*/
-
         [WebMethod]
         public string cargar_Vehiculos()
         {
@@ -66,7 +59,8 @@ namespace Aduana_app.Web_Services
 
                 return json;
             }
-            catch (Exception e) {
+            catch (Exception ex) {
+                Console.WriteLine(ex);
                 var json = JsonConvert.SerializeObject(new
                 {
                     vehiculos = "",
@@ -80,16 +74,14 @@ namespace Aduana_app.Web_Services
         }
 
         [WebMethod]
-        public string calcular_Costo_Viaje(int id_vehiculo, string pais_destino) {
+        public string calcular_Costo_Viaje(int id_Vehiculo, string pais_Destino) {
             long costoViaje = 0;
-           
-            
             try
             {
                 ConexionDB_Envios conn = new ConexionDB_Envios();
                 string sqlCommand = "select '2017' as modelo, mc.pais as pais_origen, CAST((ln.factor* 1000)*0.04 AS DECIMAL(18,0)) as precio_vehiculo " +
                      " from linea ln " +
-                     " join marca mc on mc.ID_marca = ln.marca where ln.ID_linea = "+Convert.ToString(id_vehiculo)+ " ; ";
+                     " join marca mc on mc.ID_marca = ln.marca where ln.ID_linea = "+Convert.ToString(id_Vehiculo)+ " ; ";
                 DataSet resultado = conn.selectDB(sqlCommand);
                 
                 if (resultado != null && resultado.Tables[0].Rows.Count > 0)
@@ -108,8 +100,9 @@ namespace Aduana_app.Web_Services
 
                 return json;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 var json = JsonConvert.SerializeObject(new
                 {
                     costo_viaje = 0,
@@ -123,14 +116,14 @@ namespace Aduana_app.Web_Services
         }
 
         [WebMethod]
-        public string obtener_Datos_Vehiculo(int id_vehiculo) {
+        public string obtener_Datos_Vehiculo(int id_Vehiculo) {
             try
             {
                 ConexionDB_Envios conn = new ConexionDB_Envios();
                 string sqlCommand = "select ln.ID_linea, mc.nombre as marca, ln.nombre as linea, '2017' as modelo, mc.pais as pais_origen, (ln.factor* 1000) as precio_vehiculo " +
                         " from linea ln " +
                         " join marca mc on mc.ID_marca = ln.marca "+
-                        " where ln.ID_linea ="+Convert.ToString(id_vehiculo)+";";
+                        " where ln.ID_linea ="+Convert.ToString(id_Vehiculo) +";";
                 DataSet resultado = conn.selectDB(sqlCommand);
                 List<vehiculo> listadoVehiculos = new List<vehiculo>();
                 vehiculo objVehiculo = new vehiculo();
@@ -157,7 +150,7 @@ namespace Aduana_app.Web_Services
                     linea = objVehiculo.linea,
                     modelo = objVehiculo.modelo,
                     pais_Origen = objVehiculo.pais_Origen,
-                    precio_Vehiculos = objVehiculo.precio_vehiculo,
+                    precio_Vehiculo = objVehiculo.precio_vehiculo,
                     status = 0,
                     descripcion = "Exitoso"
 
@@ -165,15 +158,16 @@ namespace Aduana_app.Web_Services
 
                 return json;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 var json = JsonConvert.SerializeObject(new
                 {
                     marca = "",
                     linea ="",
                     modelo =0,
                     pais_Origen ="",
-                    precio_Vehiculos = 0,
+                    precio_Vehiculo = 0,
                     status = 1,
                     descripcion = "Error con la conexión a la BD de Envios"
 
@@ -184,12 +178,12 @@ namespace Aduana_app.Web_Services
         }
 
         [WebMethod]
-        public string guardar_Transferencia(int id_transferencia, long monto)
+        public string guardar_Transferencia(int id_Transferencia, double monto)
         {
             try
             {
                 ConexionDB_Envios conn = new ConexionDB_Envios();
-                string sqlCommand = "insert into transferencia (ID_transferencia, monto, fecha_hora) values ('" + id_transferencia + "', " + Convert.ToString(monto) + " , SYSDATETIME());";
+                string sqlCommand = "insert into transferencia (ID_transferencia, monto, fecha_hora) values ('" + id_Transferencia + "', " + Convert.ToString(monto) + " , SYSDATETIME());";
                 int resultado = conn.modificarDB(sqlCommand);
 
                 if (resultado == 1)
@@ -214,8 +208,9 @@ namespace Aduana_app.Web_Services
 
                 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 var json = JsonConvert.SerializeObject(new
                 {
                     status = 1,
