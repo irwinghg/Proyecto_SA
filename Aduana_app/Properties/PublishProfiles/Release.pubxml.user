@@ -6,80 +6,81 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\WebServices\WS_Todos</_PublishTargetUrl>
+    <_PublishTargetUrl>ftp://192.168.43.32</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAPDzWUZWKYkSsILSlKpNH5QAAAAACAAAAAAAQZgAAAAEAACAAAAD5ZsC+JTt+8kds3iFsUX3BNbBJi4/IcYT7J7suCZZgWgAAAAAOgAAAAAIAACAAAAAkCcT2ajQXGGHYLAjwxilfzTpD/ATrxyeWsOeui6CyaBAAAAAxHWvVpdWvRjISGDKTQKcgQAAAADezHOnYuEemtqkCqc86sZgu7EUO/mWaqvDz96ZHoHi84eJrT05OyX9vNzg3n6uSbIbi4XdLZt6hAEryG+LzdPc=</EncryptedPassword>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Aduana_app.dll">
-      <publishTime>10/28/2017 00:55:24</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Mono.Cecil.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Mono.Cecil.Mdb.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Mono.Cecil.Pdb.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Mono.Cecil.Rocks.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/nunit.engine.api.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/nunit.engine.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/nunit.framework.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/NUnit3.TestAdapter.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Mono.Cecil.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Mono.Cecil.Mdb.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Mono.Cecil.Pdb.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Mono.Cecil.Rocks.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="nunit.engine.api.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="nunit.engine.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NUnit3.TestAdapter.dll">
-      <publishTime>10/14/2017 08:09:05</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/14/2017 08:09:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/14/2017 12:17:48</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="WebServices/ws_Aduana.asmx">
-      <publishTime>10/14/2017 08:09:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="WebServices/ws_Banco.asmx">
-      <publishTime>10/14/2017 08:09:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="WebServices/ws_Envios.asmx">
-      <publishTime>10/14/2017 08:09:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="WebServices/ws_Importadora.asmx">
-      <publishTime>10/14/2017 08:09:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="WebServices/ws_Sat.asmx">
-      <publishTime>10/14/2017 08:09:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
   </ItemGroup>
 </Project>
