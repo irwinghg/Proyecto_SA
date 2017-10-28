@@ -38,12 +38,12 @@ namespace Aduana_app.Web_Services
                     {
                         Random rn = new Random();
                         vehiculo objVehiculo = new vehiculo();
-                        objVehiculo.id_vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
+                        objVehiculo.id_Vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
                         objVehiculo.marca = dr["marca"].ToString();
                         objVehiculo.linea = dr["linea"].ToString();
                         objVehiculo.modelo = Convert.ToInt32(rn.Next(1980, 2018));
                         objVehiculo.pais_Origen = dr["pais_origen"].ToString();
-                        objVehiculo.precio_vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
+                        objVehiculo.precio_Vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
                         listadoVehiculos.Add(objVehiculo);
 
                     }
@@ -133,12 +133,12 @@ namespace Aduana_app.Web_Services
                     {
                         Random rn = new Random();
                         
-                        objVehiculo.id_vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
+                        objVehiculo.id_Vehiculo = Convert.ToInt32(dr["ID_linea"].ToString());
                         objVehiculo.marca = dr["marca"].ToString();
                         objVehiculo.linea = dr["linea"].ToString();
                         objVehiculo.modelo = Convert.ToInt32(rn.Next(1980, 2018));
                         objVehiculo.pais_Origen = dr["pais_origen"].ToString();
-                        objVehiculo.precio_vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
+                        objVehiculo.precio_Vehiculo = Convert.ToInt64(dr["precio_vehiculo"].ToString());
                         
                         break;
                     }
@@ -150,7 +150,7 @@ namespace Aduana_app.Web_Services
                     linea = objVehiculo.linea,
                     modelo = objVehiculo.modelo,
                     pais_Origen = objVehiculo.pais_Origen,
-                    precio_Vehiculo = objVehiculo.precio_vehiculo,
+                    precio_Vehiculo = objVehiculo.precio_Vehiculo,
                     status = 0,
                     descripcion = "Exitoso"
 
@@ -244,12 +244,12 @@ namespace Aduana_app.Web_Services
         }
 
         public class vehiculo {
-            public int id_vehiculo { get; set; }
+            public int id_Vehiculo { get; set; }
             public string marca { get; set; }
             public string linea { get; set; }
             public int modelo { get; set; }
             public string pais_Origen { get; set; }
-            public double precio_vehiculo { get; set; }
+            public double precio_Vehiculo { get; set; }
         }
 
     }
